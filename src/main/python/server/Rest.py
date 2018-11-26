@@ -1,6 +1,7 @@
 import sqlite3 as lite
 import sys
 from flask import Flask, request
+from flask_cors import CORS
 app = Flask(__name__)
 
 con = lite.connect('Students')
@@ -23,7 +24,7 @@ def addMember():
       username = request.args['username']
       email = request.args['email']
       cur = con.cursor()
-      cur.execute("INSERT INTO students (username, email) VALUES (?)", (username, email))
+      cur.execute("INSERT INTO students (username, email) VALUES (?, ?)", (username, email))
       con.commit()
    #cur = con.cursor()
    #cur.execute("INSERT INTO students (username, email) VALUES(usernameinput, emailinput)")
