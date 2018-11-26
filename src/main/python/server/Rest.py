@@ -1,6 +1,7 @@
 import sqlite3 as lite
 import sys
-from flask import Flask, request
+import json
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 app = Flask(__name__)
 
@@ -10,12 +11,14 @@ con = lite.connect('Students')
 def hello_world():
    return "Hello World"
 
-@app.route("/user/get/")
+@app.route("/userget/")
 def getMember():
-   with con:
+   with lite.connect('Students') as con:
       cur = con.cursor()
       users = cur.execute("SELECT * from students")
-   return users
+      users_json = json.dumps(users)
+
+   return users_json
 
 @app.route('/useradd/')
 def addMember():
