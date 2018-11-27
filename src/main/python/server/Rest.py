@@ -15,7 +15,8 @@ def hello_world():
 def getMember():
    with lite.connect('Students') as con:
       cur = con.cursor()
-      users = cur.execute("SELECT * from students")
+      cur.execute("SELECT * from students")
+      users = cur.fetchall()
       users_json = json.dumps(users)
 
    return users_json
