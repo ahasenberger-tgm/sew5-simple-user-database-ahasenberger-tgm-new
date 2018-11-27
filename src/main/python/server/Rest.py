@@ -21,6 +21,7 @@ def getMember():
 
    return users_json
 
+
 @app.route('/useradd/')
 def addMember():
    #with con:
@@ -36,12 +37,36 @@ def addMember():
    return "user"
 
 @app.route("/user/update/<string:nameupdate>/")
-def updateMember(nameupdate):
-   return nameupdate
+def updateMember():
+    """with lite.connect('Students') as con:
+        email = request.args['email']
+        username = request.args['username']
+        cur = con.cursor()
+        if (username == ""):
+            cur.execute("UPDATE students SET email=(?) WHERE userid=(?)", (email, userid))
+        if (email == ""):
+            cur.execute("UPDATE students SET username=(?) WHERE userid=(?)", (username, userid))"""
 
-@app.route("/user/delete/<string:namedel>/")
-def delMember(namedel):
-   return namedel
+    return "X"
+
+@app.route("/userdelete/")
+def delMember():
+    with lite.connect('Students') as con:
+        email = request.args['email']
+        username = request.args['username']
+        userid = request.args['userid']
+        cur = con.cursor()
+
+        if(username == "" and userid == ""):
+            cur.execute("SELECT userid FROM students WHERE email=(?)", (email))
+            userid = cur.fetchall()
+
+        if (email == "" and userid == ""):
+            cur.execute("SELECT userid FROM students WHERE username=(?)", (username))
+            userid = cur.fetchall()
+
+        cur.execute("DELETE FROM students WHERE user_id=(?)", (userid))
+    return "Success"
 
 if __name__ == '__main__':
    app.run()
