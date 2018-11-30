@@ -1,44 +1,43 @@
 <template>
   <div>
     <p>Home</p>
-    <p>Random Data: {{wert}}</p>
-    <button @click="getRandom">Get Data</button>
+    <p>Users: {{wert}}</p>
+    <input v-model="deleteuserid" name="deleteuserid" placeholder="UserID to delete">
+    <button @click="deleteUser">Delete Users</button>
+    <br>
+    <button @click="getUsers">Get Data</button>
   </div>
 </template>
 
 <script>
-  import axios from 'axios'
+import axios from 'axios'
 
 export default {
- data () {
-   return {
-     wert: "kein Wert"
-   }
- },
-methods: {
-  getRandomInt (min, max) {
-    min = Math.ceil(min)
-    max = Math.floor(max)
-    return Math.floor(Math.random() * (max - min + 1)) + min
+  data () {
+    return {
+      wert: 'kein Wert',
+      deleteuserid: 0
+    }
   },
-  getRandom () {
-    //this.randomNumber = this.getRandomInt(1, 100)
-    this.wert = this.getDataFromBackend()
-  },
+  methods: {
+    deleteUser () {
+      const delpath = 'http://localhost:5000/userdelete/?userid=' + this.deleteuserid + '&username=&email='
+      axios.get(delpath)
+    },
 
-  getDataFromBackend(){
-    const path = 'https://microgreengamification.herokuapp.com/erfolg';
-    axios.get(path)
-      .then(response => {
-        this.wert = response.data.name
-      })
-      .catch(error => {
-        console.log(error)
-      });
-  }
+    getUsers () {
+      const path = 'http://127.0.0.1:5000/userget'
+      axios.get(path)
+        .then(response => {
+          this.wert = response.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    }
   },
   created () {
-   this.getRandom()
+    this.getUsers()
   }
 }
 </script>
