@@ -1,9 +1,14 @@
 <template>
   <div>
     <p>Home</p>
-    <p>Users: {{usersjson}}</p>
+    <!--<p>Users: {{usersjson}}</p>-->
     <input v-model="deleteuserid" name="deleteuserid" placeholder="UserID to delete">
     <button @click="deleteUser">Delete Users</button>
+    <br>
+    <br>
+    <input v-model="usernameeingabe" name="usernameeingabe" placeholder="Insert a new Username">
+    <input v-model="emaileingabe" name="emaileingabe" placeholder="Insert a new email address">
+    <button @click="addUser">Add a new User</button>
     <br>
     <br>
     <table id="UserTable" align="center">
@@ -36,7 +41,9 @@ export default {
     return {
       wert: 'kein Wert',
       deleteuserid: 0,
-      usersjson: {}
+      usersjson: {},
+      usernameeingabe: '',
+      emaileingabe: ''
     }
   },
   methods: {
@@ -55,6 +62,13 @@ export default {
         .catch(error => {
           console.log(error)
         })
+    },
+
+    addUser () {
+      const addpath = 'http://localhost:5000/useradd/?username=' + this.usernameeingabe + '&email=' + this.emaileingabe
+      axios.get(addpath)
+      setTimeout(function () {}, 1000)
+      window.location.reload(true)
     }
   },
   created () {
