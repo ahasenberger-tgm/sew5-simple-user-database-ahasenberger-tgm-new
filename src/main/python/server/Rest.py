@@ -61,15 +61,16 @@ def delMember():
         userid = request.args['userid']
         cur = con.cursor()
 
-        if(username == "" and userid == ""):
+        """if(username == "" and userid == ""):
             cur.execute("SELECT userid FROM students WHERE email=(?)", (email))
             userid = cur.fetchall()
 
         if (email == "" and userid == ""):
             cur.execute("SELECT userid FROM students WHERE username=(?)", (username))
             userid = cur.fetchall()
-
-        cur.execute("DELETE FROM students WHERE user_id=(?)", (userid))
+        """
+        cur.execute("DELETE FROM students WHERE userid = (?)", (userid))
+        cur.fetchall()
     return "Success"
 
 if __name__ == '__main__':
