@@ -2,7 +2,7 @@
   <div>
     <p>Home</p>
     <!--<p>Users: {{usersjson}}</p>-->
-    <input v-model="deleteuserid" name="deleteuserid" placeholder="UserID to delete">
+    <input v-model="deleteuserid" name="deleteuserid" id="deleteuserid" placeholder="UserID to delete">
     <button @click="deleteUser">Delete Users</button>
     <br>
     <br>

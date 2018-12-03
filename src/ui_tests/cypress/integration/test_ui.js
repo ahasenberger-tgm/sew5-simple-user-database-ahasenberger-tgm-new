@@ -16,4 +16,9 @@ describe('My First Test', function() {
         cy.contains('Add a new User').click()
         cy.contains('Get Data').click()
     })
+
+    it('Check if Input Fields are not disabled', function(){
+        cy.visit('http://localhost:8080')
+        cy.get('input[name="deleteuserid"]').clear().type('10').should('have.value', '10')
+    })
 })
