@@ -3,6 +3,7 @@ import sys
 import json
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+
 app = Flask(__name__)
 CORS(app)
 con = lite.connect('Students')
@@ -17,9 +18,12 @@ def getMember():
       cur = con.cursor()
       cur.execute("SELECT * from students")
       users = cur.fetchall()
-      users_json = json.dumps(users)
+      userOut = []
+      for i in range(len(users)):
+          user = {"username": users[i][0], "email": users[i][1], "id": users[i][2], "picture": ""}
+          userOut.append(user)
 
-   return users_json
+      return json.dumps(userOut)
 
 
 @app.route('/useradd/')

@@ -1,9 +1,28 @@
 <template>
   <div>
     <p>Home</p>
-    <p>Users: {{wert}}</p>
+    <p>Users: {{usersjson}}</p>
     <input v-model="deleteuserid" name="deleteuserid" placeholder="UserID to delete">
     <button @click="deleteUser">Delete Users</button>
+    <br>
+    <br>
+    <table id="UserTable" align="center">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>username</th>
+          <th>email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="row in usersjson">
+          <td>{{row.id}}</td>
+          <td>{{row.username}}</td>
+          <td>{{row.email}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
     <br>
     <button @click="getUsers">Get Data</button>
   </div>
@@ -16,7 +35,8 @@ export default {
   data () {
     return {
       wert: 'kein Wert',
-      deleteuserid: 0
+      deleteuserid: 0,
+      usersjson: {}
     }
   },
   methods: {
@@ -29,7 +49,8 @@ export default {
       const path = 'http://127.0.0.1:5000/userget'
       axios.get(path)
         .then(response => {
-          this.wert = response.data
+          // this.wert = response.data
+          this.usersjson = response.data
         })
         .catch(error => {
           console.log(error)
