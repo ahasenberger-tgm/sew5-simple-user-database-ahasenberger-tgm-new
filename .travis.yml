@@ -9,5 +9,5 @@ matrix:
     sudo: required
     dist: xenial
     python: 3.7
-  install: pip install tox-travis
-  script: tox
+    install: pip install tox-travis
+    script: tox
