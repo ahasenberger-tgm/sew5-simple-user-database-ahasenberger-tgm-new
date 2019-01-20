@@ -21,3 +21,7 @@ def test_adduser(client):
 def test_deleteuser(client):
     res = client.get('/userdelete?userid=2&username=ahasenberger&email=ahasenberger@student.tgm.ac.at')
     assert res.status_code == 200
+
+def test_getuser(client):
+    res = client.get('/userget')
+    assert res.status_code == 200

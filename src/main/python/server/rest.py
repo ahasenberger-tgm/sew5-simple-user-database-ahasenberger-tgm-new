@@ -42,16 +42,19 @@ def addMember():
 
 @app.route("/user/update/<string:nameupdate>")
 def updateMember():
-    """with lite.connect('Students') as con:
+    with lite.connect('Students') as con:
+        userid = request.args['id']
         email = request.args['email']
         username = request.args['username']
         cur = con.cursor()
         if (username == ""):
             cur.execute("UPDATE students SET email=(?) WHERE userid=(?)", (email, userid))
+            con.commit()
         if (email == ""):
-            cur.execute("UPDATE students SET username=(?) WHERE userid=(?)", (username, userid))"""
+            cur.execute("UPDATE students SET username=(?) WHERE userid=(?)", (username, userid))
+            con.commit()
 
-    return "X"
+    return "Success"
 
 @app.route("/userdelete")
 def delMember():
