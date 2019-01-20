@@ -43,7 +43,7 @@ def addMember():
 @app.route("/userupdate")
 def updateMember():
     with lite.connect('Students') as con:
-        userid = request.args['id']
+        userid = request.args['userid']
         email = request.args['email']
         username = request.args['username']
         cur = con.cursor()

@@ -11,6 +11,12 @@
     <button @click="addUser">Add a new User</button>
     <br>
     <br>
+    <input v-model="updateusername" name="updateusername" id="updateusername" placeholder="new username">
+    <input v-model="updateemail" name="updateemail" id="updateemail" placeholder="new user email">
+    <input v-model="updateuserid" name="updateuserid" id="updateuserid" placeholder="id of user to be updated">
+    <button @click="updateUser">Update Users</button>
+    <br>
+    <br>
     <table id="UserTable" align="center">
       <thead>
         <tr>
@@ -43,7 +49,10 @@ export default {
       deleteuserid: 0,
       usersjson: {},
       usernameeingabe: '',
-      emaileingabe: ''
+      emaileingabe: '',
+      updateuserid: 0,
+      updateusername: '',
+      updateemail: ''
     }
   },
   methods: {
@@ -67,6 +76,13 @@ export default {
     addUser () {
       const addpath = 'http://localhost:5000/useradd?username=' + this.usernameeingabe + '&email=' + this.emaileingabe
       axios.get(addpath)
+      setTimeout(function () {}, 1000)
+      window.location.reload(true)
+    },
+
+    updateUser() {
+      const updatepath = 'http://localhost:5000/userupdate?userid=' + this.updateuserid + '&email=' + this.updateemail + '&username=' + this.updateusername
+      axios.get(updatepath)
       setTimeout(function () {}, 1000)
       window.location.reload(true)
     }

@@ -25,3 +25,13 @@ def test_deleteuser(client):
 def test_getuser(client):
     res = client.get('/userget')
     assert res.status_code == 200
+
+def test_updateuserwithemail(client):
+    res = client.get('/useradd?email=ahasenberger@student.tgm.ac.at&username=ahasenberger')
+    res = client.get('userupdate?email=ahasenbergeeeeer@student.tgm.ac.at&userid=15&username=')
+    assert res.status_code == 200
+
+def test_updateuserwithusername(client):
+    res = client.get('/useradd?email=ahasenberger@student.tgm.ac.at&username=ahasenberger')
+    res = client.get('userupdate?username=ahasenbergeeeeer@student.tgm.ac.at&userid=15&email=')
+    assert res.status_code == 200
