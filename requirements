@@ -3,3 +3,4 @@ pytest-cov
 pytest-html
 flask
 flask_cors
+sqlalchemy

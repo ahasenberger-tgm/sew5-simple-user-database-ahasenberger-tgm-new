@@ -1,17 +1,17 @@
 import pytest
-import server.main
+
 from flask import url_for
 from flask import Flask
-from server import Rest
+from server.rest import app
 
 @pytest.fixture
 def client():
-    Rest.app.testing = True
-    client = Rest.app.test.client()
+    app.testing = True
+    client = app.test_client()
     yield client
 
 def test_ping(client):
-    res = client.get('/userget')
+    res = client.get('/')
     assert res.status_code == 200
 
 def test_adduser(client):

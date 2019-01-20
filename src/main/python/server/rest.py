@@ -12,7 +12,7 @@ con = lite.connect('Students')
 def hello_world():
    return "Hello World"
 
-@app.route("/userget/")
+@app.route("/userget")
 def getMember():
    with lite.connect('Students') as con:
       cur = con.cursor()
@@ -26,7 +26,7 @@ def getMember():
       return json.dumps(userOut)
 
 
-@app.route('/useradd/')
+@app.route('/useradd')
 def addMember():
    #with con:
    with lite.connect('Students') as con:
@@ -40,7 +40,7 @@ def addMember():
 
    return "user"
 
-@app.route("/user/update/<string:nameupdate>/")
+@app.route("/user/update/<string:nameupdate>")
 def updateMember():
     """with lite.connect('Students') as con:
         email = request.args['email']
@@ -53,7 +53,7 @@ def updateMember():
 
     return "X"
 
-@app.route("/userdelete/")
+@app.route("/userdelete")
 def delMember():
     with lite.connect('Students') as con:
         email = request.args['email']

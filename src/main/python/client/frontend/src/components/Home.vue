@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     deleteUser () {
-      const delpath = 'http://localhost:5000/userdelete/?userid=' + this.deleteuserid + '&username=&email='
+      const delpath = 'http://localhost:5000/userdelete?userid=' + this.deleteuserid + '&username=&email='
       axios.get(delpath)
     },
 
@@ -65,7 +65,7 @@ export default {
     },
 
     addUser () {
-      const addpath = 'http://localhost:5000/useradd/?username=' + this.usernameeingabe + '&email=' + this.emaileingabe
+      const addpath = 'http://localhost:5000/useradd?username=' + this.usernameeingabe + '&email=' + this.emaileingabe
       axios.get(addpath)
       setTimeout(function () {}, 1000)
       window.location.reload(true)
