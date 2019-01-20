@@ -40,7 +40,7 @@ def addMember():
 
    return "user"
 
-@app.route("/user/update/<string:nameupdate>")
+@app.route("/userupdate")
 def updateMember():
     with lite.connect('Students') as con:
         userid = request.args['id']
