@@ -38,4 +38,9 @@ matrix:
     script:
     - cd ..
     - cd ..
+    - cd ..
+    - cd ..
+    - cd ..
+    - cd ..
+    - cd src/ui_tests
     - $(npm bin)/cypress run
