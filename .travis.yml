@@ -39,7 +39,4 @@ matrix:
     - cd ..
     - cd ..
     - cd ..
-    - cd ..
-    - cd ..
-    - cd ..
     - $(npm bin)/cypress run
