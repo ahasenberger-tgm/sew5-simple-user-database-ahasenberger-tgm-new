@@ -11,7 +11,7 @@ matrix:
     install: pip install tox-travis
     script: tox
   - stage: Cypress Test
-    name: "Frontend Cypress Tests"
+    name: "Cypress UI Test"
     language: node_js
     node_js: 10
     npm: true
@@ -26,15 +26,3 @@ matrix:
     - sudo pip install flask-cors
     - python3 -V
     - pip3 -V
-    install:
-    - npm install
-    - sudo pip3 install -r requirements.txt
-    - cd src/main/python/client/frontend/src/router
-    - npm ci
-    before_script:
-    - npm run dev &
-    - python ../../../../server/rest.py &
-    script:
-    - cd ..
-    - cd ..
-    - $(npm bin)/cypress run
