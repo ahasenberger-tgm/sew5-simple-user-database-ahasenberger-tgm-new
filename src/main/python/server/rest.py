@@ -1,7 +1,8 @@
 import sqlite3 as lite
 import sys
 import json
-from flask import Flask, request, jsonify
+import validators
+from flask import Flask, request, jsonify, abort
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -32,9 +33,14 @@ def addMember():
    with lite.connect('Students') as con:
       username = request.args['username']
       email = request.args['email']
-      cur = con.cursor()
-      cur.execute("INSERT INTO students (username, email) VALUES (?, ?)", (username, email))
-      con.commit()
+      usernametry = validators.length(username,min=5,max=80)
+      emailtry = validators.email(email)
+      if (usernametry == True and emailtry == True):
+          cur = con.cursor()
+          cur.execute("INSERT INTO students (username, email) VALUES (?, ?)", (username, email))
+          con.commit()
+      else:
+          abort(422)
    #cur = con.cursor()
    #cur.execute("INSERT INTO students (username, email) VALUES(usernameinput, emailinput)")
 
@@ -46,13 +52,18 @@ def updateMember():
         userid = request.args['userid']
         email = request.args['email']
         username = request.args['username']
-        cur = con.cursor()
-        if (username == ""):
-            cur.execute("UPDATE students SET email=(?) WHERE userid=(?)", (email, userid))
-            con.commit()
-        if (email == ""):
-            cur.execute("UPDATE students SET username=(?) WHERE userid=(?)", (username, userid))
-            con.commit()
+        usernametry = validators.length(username,min=5,max=80)
+        emailtry = validators.email(email)
+        if(usernametry == True and emailtry == True):
+            cur = con.cursor()
+            if (username == ""):
+                cur.execute("UPDATE students SET email=(?) WHERE userid=(?)", (email, userid))
+                con.commit()
+            if (email == ""):
+                cur.execute("UPDATE students SET username=(?) WHERE userid=(?)", (username, userid))
+                con.commit()
+        else:
+            abort(422)
 
     return "Success"
 

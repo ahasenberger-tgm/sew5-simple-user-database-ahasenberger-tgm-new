@@ -28,10 +28,37 @@ def test_getuser(client):
 
 def test_updateuserwithemail(client):
     res = client.get('/useradd?email=ahasenberger@student.tgm.ac.at&username=ahasenberger')
-    res = client.get('userupdate?email=ahasenbergeeeeer@student.tgm.ac.at&userid=15&username=')
+    res = client.get('userupdate?email=ahasenbergeeeeer@student.tgm.ac.at&userid=15&username=ahuahuahauhau')
     assert res.status_code == 200
 
 def test_updateuserwithusername(client):
     res = client.get('/useradd?email=ahasenberger@student.tgm.ac.at&username=ahasenberger')
-    res = client.get('userupdate?username=ahasenbergeeeeer@student.tgm.ac.at&userid=15&email=')
+    res = client.get('userupdate?username=ahasenbergeeeeer@student.tgm.ac.at&userid=15&email=haaha@hotmail.com')
     assert res.status_code == 200
+
+def test_adduserUsernameTooShort(client):
+    res = client.get('useradd?username=hae&email=ahasenberger@student.tgm.ac.at')
+    assert res.status_code == 422
+
+def test_adduserUsernameTooLong(client):
+    res = client.get('useradd?username=hgggggggggggggggvreevevvverggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggae&email=ahasenberger@student.tgm.ac.at')
+    assert res.status_code == 422
+
+def test_adduserEmailInvalid(client):
+    res = client.get('useradd?username=HASEEEEEEE&email=ahasenbergertgmmailmail')
+    assert res.status_code == 422
+
+def test_updateuserUsernameTooLong(client):
+    res = client.get('/useradd?email=ahasenberger@student.tgm.ac.at&username=ahasenberger')
+    res = client.get('userupdate?username=ahasenbergjojijojojjojojojojojojojjojjojojjojojojojojojojojojojojojojojojojojojojojojojojojojojojojojjojojojojojojojojojojojojoeetralalala&userid=15&email=haaha@hotmail.com')
+    assert res.status_code == 422
+
+def test_updateuserUsernameTooShort(client):
+    res = client.get('/useradd?email=ahasenberger@student.tgm.ac.at&username=ahasenberger')
+    res = client.get('userupdate?username=abc&userid=15&email=haaha@hotmail.com')
+    assert res.status_code == 422
+
+def test_updateuserEmailInvalid(client):
+    res = client.get('/useradd?email=ahasenberger@student.tgm.ac.at&username=ahasenberger')
+    res = client.get('userupdate?username=ahasenberger-tgm&userid=15&email=haaha@@@hotmail.com')
+    assert res.status_code == 422

@@ -4,3 +4,4 @@ pytest-html
 flask
 flask_cors
 sqlalchemy
+validators
