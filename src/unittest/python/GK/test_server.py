@@ -62,3 +62,28 @@ def test_updateuserEmailInvalid(client):
     res = client.get('/useradd?email=ahasenberger@student.tgm.ac.at&username=ahasenberger')
     res = client.get('userupdate?username=ahasenberger-tgm&userid=15&email=haaha@@@hotmail.com')
     assert res.status_code == 422
+
+def test_adduserNoUsername(client):
+    res = client.get('useradd?username=&email=ahasenberger@student.tgm.ac.at')
+    assert res.status_code == 422
+
+def test_adduserNoEmail(client):
+    res = client.get('useradd?username=abcdfeg&email=')
+    assert res.status_code == 422
+
+def test_adduserNoUsernameAndNoEmail(client):
+    res = client.get('useradd?username=&email=')
+    assert res.status_code == 422
+
+def test_adduserInvalidEmailAndUsernameTooLong(client):
+    res = client.get('useradd?username=jjjjjjjjjjjjjjjjjjjjjjjjdjdjdjjdijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijijiji&email=ahasenberger')
+    assert res.status_code == 422
+
+def test_adduserInvalidEmailAndUsernameTooShort(client):
+    res = client.get('useradd?username=j&email=ahasenberger')
+    assert res.status_code == 422
+
+def test_updateuserNoUsernameNoEmail(client):
+    res = client.get('/useradd?email=ahasenberger@student.tgm.ac.at&username=ahasenberger')
+    res = client.get('userupdate?username=&userid=15&email=')
+    assert res.status_code == 422
