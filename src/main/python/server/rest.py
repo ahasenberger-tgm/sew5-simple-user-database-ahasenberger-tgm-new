@@ -8,14 +8,33 @@ from flask_httpauth import HTTPDigestAuth
 from flask_cors import CORS
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'secret key here'
+auth = HTTPDigestAuth()
 CORS(app)
 con = lite.connect('Students')
 
+users = {
+    "admin": "admin",
+    "worker1": "worker1"
+}
+
+@auth.get_password
+def get_pw(username):
+    if username in users:
+        return users.get(username)
+    return None
+
 @app.route('/')
+@auth.login_required
+def index():
+    return "Hello, %s!" % auth.username()
+
+@app.route('/abc')
 def hello_world():
    return "Hello World"
 
 @app.route("/userget")
+@auth.login_required
 def getMember():
    with lite.connect('Students') as con:
       cur = con.cursor()
@@ -30,6 +49,7 @@ def getMember():
 
 
 @app.route('/useradd')
+@auth.login_required
 def addMember():
    #with con:
    with lite.connect('Students') as con:
@@ -49,6 +69,7 @@ def addMember():
    return "user"
 
 @app.route("/userupdate")
+@auth.login_required
 def updateMember():
     with lite.connect('Students') as con:
         userid = request.args['userid']
@@ -70,6 +91,7 @@ def updateMember():
     return "Success"
 
 @app.route("/userdelete")
+@auth.login_required
 def delMember():
     with lite.connect('Students') as con:
         email = request.args['email']
