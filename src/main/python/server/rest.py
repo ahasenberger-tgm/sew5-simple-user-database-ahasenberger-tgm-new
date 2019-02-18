@@ -4,7 +4,7 @@ import json
 import validators
 from flask import Flask, request, jsonify, abort
 from functools import wraps
-from werkzeug.contrib import authdigest
+from flask_httpauth import HTTPDigestAuth
 from flask_cors import CORS
 
 app = Flask(__name__)

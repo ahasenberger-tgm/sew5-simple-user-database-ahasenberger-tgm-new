@@ -5,3 +5,5 @@ flask
 flask_cors
 sqlalchemy
 validators
+functools
+flask_httpauth
